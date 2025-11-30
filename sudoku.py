@@ -47,18 +47,18 @@ def main_menu():
         SCREEN.fill((150,170,190))
         print_text("Welcome to Sudoku",70,HEIGHT//3.5,(0,0,0),True)
         print_text('Select Game Mode:',40,HEIGHT//2,(0,0,0),True)
-        buttons=[Buttons(WIDTH//6, HEIGHT//3, 180, 80, 'EASY', (255, 165, 0)),
-            Buttons(WIDTH//4, HEIGHT//3, 180, 80, 'MEDIUM', (255, 165, 0)),
-            Buttons(WIDTH//2, HEIGHT//3, 180, 80, 'HARD', (255, 165, 0))]
+        buttons=[Buttons(80, HEIGHT//3, 180, 80, 'EASY', (255, 165, 0)),
+            Buttons(270, HEIGHT//3, 180, 80, 'MEDIUM', (255, 165, 0)),
+            Buttons(460, HEIGHT//3, 180, 80, 'HARD', (255, 165, 0))]
         for button in buttons:
             button.create()
         return buttons
 def game_in_progress(board):
     SCREEN.fill((150,170,190))
     board.draw()
-    buttons = [Buttons(WIDTH // 6, HEIGHT // 3, 180, 80, 'RESET', (255, 165, 0)),
-               Buttons(WIDTH // 4, HEIGHT // 3, 180, 80, 'RESTART', (255, 165, 0)),
-               Buttons(WIDTH // 2, HEIGHT // 3, 180, 80, 'EXIT', (255, 165, 0))]
+    buttons = [Buttons(80, HEIGHT // 3, 180, 80, 'RESET', (255, 165, 0)),
+               Buttons(270, HEIGHT // 3, 180, 80, 'RESTART', (255, 165, 0)),
+               Buttons(460, HEIGHT // 3, 180, 80, 'EXIT', (255, 165, 0))]
     for button in buttons:
         button.create()
     return buttons
@@ -98,8 +98,14 @@ def main():
                 run = False
                 pygame.quit()
                 sys.exit()
-        buttons = main_menu()
-        pygame.display.flip()
+        if game_status == "Start Up":
+            buttons = main_menu()
+        elif game_status == "middle":
+            buttons = game_in_progress(board)
+        elif game_status == "won":
+            buttons = win()
+        elif game_status == "lost":
+            buttons = lose()
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = event.pos
             if game_status== "Start Up":
