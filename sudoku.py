@@ -27,7 +27,7 @@ class Buttons:
         self.font = pygame.font.SysFont('arial', 40)
         self.rect = pygame.Rect(self.x,self.y,self.w,self.h)
 
-    def check_click(self,pos):
+    def check_clicked(self,pos):
             return pygame.self.rect.collidepoint(pos)
 
     def create (self):
@@ -88,6 +88,39 @@ def new_board():
 def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
+    game_status= "Start Up"
+    board = None
+    buttons = None
+    run = True
+    while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = event.pos
+        if game_status== "Start Up":
+            if buttons[0].check_clicked(pos):
+                board=new_board("easy")
+                state = "middle"
+            elif buttons[1].check_clicked(pos):
+                board=new_board("medium")
+                state = "middle"
+            elif buttons[3].check_clicked(pos):
+                board=new_board("hard")
+                state = "middle"
+
+        elif game_status== "Middle":
+            if buttons[0].check_clicked(pos):
+                board.rest_to_origin()
+            elif buttons[1].check_clicked(pos):
+                game_status = "menu"
+                board = None
+            elif buttons[2].check_clicked(pos):
+                run = False
+        
+
+
+
 
 if __name__=="__main__":
     main()
