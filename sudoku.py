@@ -5,8 +5,8 @@ from Board_Class import Board
 from sudoku_generator import generate_sudoku
 pygame.init()
 
-Width_C,Height_C = 720,800
-SCREEN =pygame.display.set_mode((Width_C, Height_C))
+WIDTH,HEIGHT = 720,800
+SCREEN =pygame.display.set_mode((WIDTH, HEIGHT))
 
 LEVEL_Easy=30
 LEVEL_Medium=40
@@ -39,33 +39,33 @@ def print_text(text,size,y,color=(0,0,0),bold=False):
         font=pygame.font.SysFont('arial', size,bold=bold)
 
         surf = font.render(text, True, color)
-        SCREEN.blit(surf, surf.get_rect(center=(Width_C // 2, y)))
+        SCREEN.blit(surf, surf.get_rect(center=(WIDTH // 2, y)))
 
 
 
 def main_menu():
         SCREEN.fill((150,170,190))
-        print_text("Welcome to Sudoku",70,Height_C//3.5,(0,0,0),True)
-        print_text('Select Game Mode:',40,Height_C//2,(0,0,0),True)
-        buttons=[Buttons(Width_C//6, Height_C//3, 180, 80, 'EASY', (255, 165, 0)),
-            Buttons(Width_C//4, Height_C//3, 180, 80, 'MEDIUM', (255, 165, 0)),
-            Buttons(Width_C//2, Height_C//3, 180, 80, 'HARD', (255, 165, 0))]
+        print_text("Welcome to Sudoku",70,HEIGHT//3.5,(0,0,0),True)
+        print_text('Select Game Mode:',40,HEIGHT//2,(0,0,0),True)
+        buttons=[Buttons(WIDTH//6, HEIGHT//3, 180, 80, 'EASY', (255, 165, 0)),
+            Buttons(WIDTH//4, HEIGHT//3, 180, 80, 'MEDIUM', (255, 165, 0)),
+            Buttons(WIDTH//2, HEIGHT//3, 180, 80, 'HARD', (255, 165, 0))]
         for button in buttons:
             button.create()
         return buttons
 def game_in_progress(board):
     SCREEN.fill((150,170,190))
     board.draw()
-    buttons = [Buttons(Width_C // 6, Height_C // 3, 180, 80, 'RESET', (255, 165, 0)),
-               Buttons(Width_C // 4, Height_C // 3, 180, 80, 'RESTART', (255, 165, 0)),
-               Buttons(Width_C // 2, Height_C // 3, 180, 80, 'EXIT', (255, 165, 0))]
+    buttons = [Buttons(WIDTH // 6, HEIGHT // 3, 180, 80, 'RESET', (255, 165, 0)),
+               Buttons(WIDTH // 4, HEIGHT // 3, 180, 80, 'RESTART', (255, 165, 0)),
+               Buttons(WIDTH // 2, HEIGHT // 3, 180, 80, 'EXIT', (255, 165, 0))]
     for button in buttons:
         button.create()
     return buttons
 
 def win():
     SCREEN.fill((150,170,190))
-    print_text(CLEARED,70,Height_C//2,(0,0,0),True)
+    print_text(CLEARED,70,HEIGHT//2,(0,0,0),True)
     button = Buttons(260, 450, 200, 80, 'EXIT', ORANGE)
     button.create()
     return button
@@ -73,14 +73,14 @@ def win():
 
 def lose():
     SCREEN.fill(BACKGROUND_COLOR)
-    print_text(UNSUCCESSFUL_CLEAR,70,Height_C//2,(0,0,0),True)
+    print_text(UNSUCCESSFUL_CLEAR,70,HEIGHT//2,(0,0,0),True)
     button = Buttons(260, 450, 200, 80, 'RESTART', ORANGE)
     button.create()
     return button
 
 
 def new_board():
-    return Board(Width_C,Height_C,SCREEN,Board.difficulty)
+    return Board(WIDTH,HEIGHT,SCREEN,Board.difficulty)
 
 
 
@@ -91,6 +91,12 @@ def main():
 
 if __name__=="__main__":
     main()
+
+
+
+
+
+
 
 BACKGROUND_COLOR = (150,170,190)
 ORANGE=(255, 165, 0)
