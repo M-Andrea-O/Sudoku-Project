@@ -160,7 +160,6 @@ class SudokuGenerator:
 	boolean (whether or not we could solve the board)
     '''
     def fill_remaining(self, row, col):
-        print(col, row)
         if (col >= self.row_length and row < self.row_length - 1):
             row += 1
             col = 0
@@ -212,13 +211,16 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
-        for i in range(0, self.removed_cells):
+        i = 0
+        while i < self.removed_cells:
             rand_col = random.randint(0, 8)
             rand_row = random.randint(0, 8)
             if self.board[rand_row][rand_col] == 0:
-                i -= 1
+                print("cell already removed", i, " ", rand_row, " ", rand_col)
             else:
                 self.board[rand_row][rand_col] = 0
+                print("removed cell", i, " ", rand_row, " ", rand_col)
+                i += 1
 
 
 
