@@ -222,6 +222,7 @@ class SudokuGenerator:
 
 
 
+
 '''
 DO NOT CHANGE
 Provided for students
@@ -244,3 +245,4 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
