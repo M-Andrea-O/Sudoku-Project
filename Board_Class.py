@@ -182,6 +182,11 @@ class Board:
     def click(self,x,y):
         row = y // self.cell_size
         col = x // self.cell_size
+        if 9<row and col<9:
+            return (None,None)
+        elif 0>row or 0>col:
+            return (None,None)
         return (row, col)
+
 
 

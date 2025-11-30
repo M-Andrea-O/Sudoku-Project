@@ -140,7 +140,7 @@ def main():
                         run = False
                     else:
                         row, col = board.click(pos[0], pos[1])
-                        if row != None and col != None and row>=0 and col>=0:
+                        if row is not None and col is not None and 9>row>=0 and 9>col>=0:
                             board.select(row,col)
                 elif game_status =="won":
                     if buttons.check_clicked(pos):
