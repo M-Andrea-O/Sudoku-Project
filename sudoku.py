@@ -82,13 +82,16 @@ def new_board(difficulty):
 def main():
     pygame.init()
 
-    game_status= "Start Up"
+    game_status= "menu"
     board = None
     buttons = []
+    difficulty = "easy"
 
     run = True
     while run:
-        if game_status == "Start Up":
+
+
+        if game_status == "menu":
             buttons = main_menu()
         elif game_status == "middle":
             buttons = game_in_progress(board)
@@ -103,28 +106,31 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            pos = event.pos
-            if game_status== "Start Up":
-                buttons = main_menu()
-                if buttons[0].check_clicked(pos):
-                    board=new_board("easy")
-                    game_status = "middle"
-                elif buttons[1].check_clicked(pos):
-                    board=new_board("medium")
-                    game_status = "middle"
-                elif buttons[2].check_clicked(pos):
-                    board=new_board("hard")
-                    game_status = "middle"
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = event.pos
+                if game_status== "menu":
+                    buttons = main_menu()
+                    if buttons[0].check_clicked(pos):
+                        difficulty = "easy"
+                        board=new_board(difficulty)
+                        game_status = "middle"
+                    elif buttons[1].check_clicked(pos):
+                        difficulty = "medium"
+                        board = new_board(difficulty)
+                        game_status = "middle"
+                    elif buttons[2].check_clicked(pos):
+                        difficulty = "hard"
+                        board=new_board(difficulty)
+                        game_status = "middle"
 
-            elif game_status== "middle":
-                if buttons[0].check_clicked(pos):
-                    board.rest_to_origin()
-                elif buttons[1].check_clicked(pos):
-                    game_status = "menu"
-                    board = None
-                elif buttons[2].check_clicked(pos):
-                    run = False
+                elif game_status== "middle":
+                    if buttons[0].check_clicked(pos):
+                        board.rest_to_origin()
+                    elif buttons[1].check_clicked(pos):
+                        game_status = "menu"
+                        board = None
+                    elif buttons[2].check_clicked(pos):
+                        run = False
         pygame.display.flip()
         
 
