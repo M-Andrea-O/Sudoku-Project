@@ -5,7 +5,7 @@ from Board_Class import Board
 from sudoku_generator import generate_sudoku
 pygame.init()
 
-WIDTH,HEIGHT = 720,800
+WIDTH,HEIGHT = 720,640
 SCREEN =pygame.display.set_mode((WIDTH, HEIGHT))
 
 LEVEL_Easy=30
@@ -81,6 +81,7 @@ def lose():
     return button
 
 def new_board(difficulty):
+
     return Board(WIDTH,HEIGHT,SCREEN,difficulty)
 
 def main():
@@ -96,7 +97,7 @@ def main():
 
         FPS.tick(120)
 
-
+        pygame.display.flip()
         if game_status == "menu":
             buttons = main_menu()
         elif game_status == "middle":
@@ -109,7 +110,6 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-                pygame.quit()
                 sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -128,6 +128,7 @@ def main():
                         difficulty = "hard"
                         board=new_board(difficulty)
                         game_status = "middle"
+                        # print("hard")
 
                 elif game_status== "middle":
                     if buttons[0].check_clicked(pos):
@@ -150,7 +151,8 @@ def main():
                     if buttons[0].check_clicked(pos):
                         game_status = "menu"
                         board=None
-            if event.type == pygame.KEYDOWN and game_status == "game":
+
+            if event.type == pygame.KEYDOWN and game_status == "middle":
                 if event.key == pygame.K_1:
                     board.sketch(1)
                 elif event.key == pygame.K_2:
@@ -171,8 +173,8 @@ def main():
                     board.sketch(9)
                 elif event.key==pygame.K_RETURN:
                     if board.selected_x is not None and board.selected_y is not None:
-                        entered_val=board.cell[board.selected_x][board.selected_y].sketched_value
-                        if entered_val is not 0:
+                        entered_val=board.cells[board.selected_x][board.selected_y].sketched_value
+                        if entered_val != 0:
                             board.place_number(entered_val)
 
 
@@ -184,10 +186,11 @@ def main():
                 elif event.key == pygame.K_BACKSPACE:
                     board.clear()
 
-            pygame.quit()
-            sys.exit()
 
-        pygame.display.flip()
+    pygame.quit()
+
+
+
 
 
         
