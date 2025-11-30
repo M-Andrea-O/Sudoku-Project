@@ -15,8 +15,9 @@ class Board:
             for j in range(9):
                 cells.append(Cell(0,i,j,self.screen))
             self.cells.append(cells)
-
-
+        self.selected_x=None
+        self.selected_y=None
+        
     def draw(self):
 
     def select(self, row, col):
