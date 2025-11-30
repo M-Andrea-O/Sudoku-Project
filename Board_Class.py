@@ -1,6 +1,8 @@
 import pygame
 pygame.init()
 from cell_class import *
+from sudoku_generator import *
+
 
 
 class Board:
@@ -20,6 +22,26 @@ class Board:
         self.selected_x=None
         self.selected_y=None
         self.cell_size= 80                                                                         #Cell.sizeof_cell has no attribute error
+        self.difficulty = difficulty
+        # remove_cells = 30
+        if difficulty == 'easy':
+            removed_cells = 30
+        elif difficulty == "medium":
+            removed_cells = 40
+        elif difficulty == "hard":
+            removed_cells = 50
+
+
+        game=generate_sudoku(9, removed_cells)
+        self.board = [[game[i][j] for j in range(9)] for i in range(9)]
+        self.original_board = [[game[i][j] for j in range(9)] for i in range(9)]
+
+        self.cells=[]
+        for i in range(9):
+            cells=[]
+            for j in range(9):
+                cells.append(Cell(game[i][j], i, j, self.screen))
+            self.cells.append(cells)
 
     def draw(self):
         """Draws the Sudoku grid and all cells"""
