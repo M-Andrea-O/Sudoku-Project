@@ -16,6 +16,10 @@ CLEARED="Game Won!"
 UNSUCCESSFUL_CLEAR="Game Over :("
 
 
+BACKGROUND_COLOR = (150,170,190)
+ORANGE=(255, 165, 0)
+
+
 class Buttons:
     def __init__(self,x,y,w,h,text,color):
         self.x=x
@@ -81,7 +85,7 @@ def new_board(difficulty):
 
 def main():
     pygame.init()
-
+    FPS = pygame.time.Clock()
     game_status= "menu"
     board = None
     buttons = []
@@ -90,6 +94,8 @@ def main():
     run = True
     while run:
 
+        FPS.tick(120)
+
 
         if game_status == "menu":
             buttons = main_menu()
@@ -97,7 +103,7 @@ def main():
             buttons = game_in_progress(board)
         elif game_status == "won":
             buttons = win()
-        elif game_status == "lost":
+        elif game_status == "lose":
             buttons = lose()
 
         for event in pygame.event.get():
@@ -131,7 +137,59 @@ def main():
                         board = None
                     elif buttons[2].check_clicked(pos):
                         run = False
+                    else:
+                        row, col = board.click(pos[0], pos[1])
+                        if row != None and col != None and row>=0 and col>=0:
+                            board.select(row,col)
+                elif game_status =="win":
+                    if buttons.check_clicked(pos):
+                        game_status = "menu"
+                        board=None
+
+                elif game_status=="lose":
+                    if buttons[0].check_clicked(pos):
+                        game_status = "menu"
+                        board=None
+            if event.type == pygame.KEYDOWN and game_status == "game":
+                if event.key == pygame.K_1:
+                    board.sketch(1)
+                elif event.key == pygame.K_2:
+                    board.sketch(2)
+                elif event.key == pygame.K_3:
+                    board.sketch(3)
+                elif event.key == pygame.K_4:
+                    board.sketch(4)
+                elif event.key == pygame.K_5:
+                    board.sketch(5)
+                elif event.key == pygame.K_6:
+                    board.sketch(6)
+                elif   event.key == pygame.K_7:
+                    board.sketch(7)
+                elif event.key == pygame.K_8:
+                    board.sketch(8)
+                elif event.key == pygame.K_9:
+                    board.sketch(9)
+                elif event.key==pygame.K_RETURN:
+                    if board.selected_x is not None and board.selected_y is not None:
+                        entered_val=board.cell[board.selected_x][board.selected_y].sketched_value
+                        if entered_val is not 0:
+                            board.place_number(entered_val)
+
+
+                            if board.is_full():
+                                if board.check_board():
+                                    game_status = "win"
+                                else:
+                                    game_status = "lose"
+                elif event.key == pygame.K_BACKSPACE:
+                    board.clear()
+
+            pygame.quit()
+            sys.exit()
+
         pygame.display.flip()
+
+
         
 
 
@@ -146,7 +204,5 @@ if __name__=="__main__":
 
 
 
-BACKGROUND_COLOR = (150,170,190)
-ORANGE=(255, 165, 0)
 
 
