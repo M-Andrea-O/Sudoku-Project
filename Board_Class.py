@@ -31,10 +31,25 @@ class Board:
     def rest_to_origin(self):
 
     def is_full(self):
+        for i in self.cells:
+            for num in i:
+                if num.value==0:
+                    return False
+        return True
+
+
 
     def update_board(self):
 
+
     def find_empty(self):
+        for i in range(9):
+            for j in range(9):
+                if self.cells[i][j].value==0:
+                    return (i,j)
+        return None
+
+
 
     def check_board(self):
 
