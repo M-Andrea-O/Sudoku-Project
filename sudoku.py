@@ -1,6 +1,6 @@
 
 
-import pygame
+import pygame, sys
 from Board_Class import Board
 from sudoku_generator import generate_sudoku
 pygame.init()
@@ -28,7 +28,7 @@ class Buttons:
         self.rect = pygame.Rect(self.x,self.y,self.w,self.h)
 
     def check_clicked(self,pos):
-            return pygame.self.rect.collidepoint(pos)
+            return self.rect.collidepoint(pos)
 
     def create (self):
         pygame.draw.rect(SCREEN, self.color, self.rect)
@@ -66,7 +66,7 @@ def game_in_progress(board):
 def win():
     SCREEN.fill((150,170,190))
     print_text(CLEARED,70,HEIGHT//2,(0,0,0),True)
-    button = Buttons(260, 450, 200, 80, 'EXIT', ORANGE)
+    button = [Buttons(260, 450, 200, 80, 'EXIT', ORANGE)]
     button.create()
     return button
 
@@ -74,13 +74,13 @@ def win():
 def lose():
     SCREEN.fill(BACKGROUND_COLOR)
     print_text(UNSUCCESSFUL_CLEAR,70,HEIGHT//2,(0,0,0),True)
-    button = Buttons(260, 450, 200, 80, 'RESTART', ORANGE)
+    button = [Buttons(260, 450, 200, 80, 'RESTART', ORANGE)]
     button.create()
     return button
 
 
-def new_board():
-    return Board(WIDTH,HEIGHT,SCREEN,Board.difficulty)
+def new_board(difficulty):
+    return Board(WIDTH,HEIGHT,SCREEN,difficulty)
 
 
 
@@ -96,27 +96,33 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
+                sys.exit()
+        buttons = main_menu()
+        pygame.display.flip()
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = event.pos
-        if game_status== "Start Up":
-            if buttons[0].check_clicked(pos):
-                board=new_board("easy")
-                state = "middle"
-            elif buttons[1].check_clicked(pos):
-                board=new_board("medium")
-                state = "middle"
-            elif buttons[3].check_clicked(pos):
-                board=new_board("hard")
-                state = "middle"
+            if game_status== "Start Up":
+                buttons = main_menu()
+                if buttons[0].check_clicked(pos):
+                    board=new_board("easy")
+                    game_status = "middle"
+                elif buttons[1].check_clicked(pos):
+                    board=new_board("medium")
+                    game_status = "middle"
+                elif buttons[2].check_clicked(pos):
+                    board=new_board("hard")
+                    game_status = "middle"
 
-        elif game_status== "Middle":
-            if buttons[0].check_clicked(pos):
-                board.rest_to_origin()
-            elif buttons[1].check_clicked(pos):
-                game_status = "menu"
-                board = None
-            elif buttons[2].check_clicked(pos):
-                run = False
+            elif game_status== "middle":
+                if buttons[0].check_clicked(pos):
+                    board.rest_to_origin()
+                elif buttons[1].check_clicked(pos):
+                    game_status = "menu"
+                    board = None
+                elif buttons[2].check_clicked(pos):
+                    run = False
+        pygame.display.flip()
         
 
 
