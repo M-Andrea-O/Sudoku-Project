@@ -74,7 +74,14 @@ class Board:
             if self.cells[row][col].value == 0:
                 self.cells[row][col].set_sketched_value(value)
 
-    def place_number(self,value):
+    def place_number(self, value):
+        """Place a number in the selected cell (when Enter is pressed)"""
+        if self.selected and 1 <= value <= 9:
+            row, col = self.selected
+            #only
+            if self.cells[row][col].value == 0:
+                self.cells[row][col].set_cell_value(value)
+                self.cells[row][col].set_sketched_value(0) 
 
     def rest_to_origin(self):
 
