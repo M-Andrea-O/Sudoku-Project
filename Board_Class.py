@@ -21,7 +21,7 @@ class Board:
             self.cells.append(cells)
         self.selected_x=None
         self.selected_y=None
-        self.cell_size= 80                                                                         #Cell.sizeof_cell has no attribute error
+        self.cell_size= 60                                                                        #Cell.sizeof_cell has no attribute error
         self.difficulty = difficulty
         # remove_cells = 30
         if difficulty == 'easy':

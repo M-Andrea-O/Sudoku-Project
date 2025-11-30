@@ -10,7 +10,7 @@ class Cell:
         self.screen = screen
         self.sketched_value = 0
         self.select_or_not=False
-        self.sizeof_cell=80
+        self.sizeof_cell=60
 
     def set_cell_value(self, value):
         self.value = value
