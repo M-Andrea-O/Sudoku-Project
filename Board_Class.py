@@ -1,7 +1,21 @@
 import pygame
 pygame.init()
+from cell_class import *
+
+
 class Board:
     def __init__(self, width, height, screen, difficulty):
+        self.width = width
+        self.height = height
+        self.screen = screen
+
+        self.cells=[]
+        for i in range(9):
+            cells=[]
+            for j in range(9):
+                cells.append(Cell(0,i,j,self.screen))
+            self.cells.append(cells)
+
 
     def draw(self):
 
