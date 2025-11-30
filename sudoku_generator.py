@@ -26,7 +26,7 @@ class SudokuGenerator:
         self.row_length = row_length
         self.removed_cells = removed_cells
         self.board = [[0 for x in range(row_length)] for y in range(row_length)]
-        self.box_length = math.sqrt(row_length)
+        self.box_length = int(math.sqrt(row_length))
 
 
     '''
@@ -46,7 +46,8 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self):
-        pass
+        for row in range(self.row_length):
+            print(self.board[row])
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
@@ -93,8 +94,8 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num):
-        for i in range(row_start, row_start+2):
-            for j in range(col_start, col_start+2):
+        for i in range(row_start, row_start+3):
+            for j in range(col_start, col_start+3):
                 if num == self.board[i][j]:
                     return False
         return True
@@ -128,8 +129,8 @@ class SudokuGenerator:
     '''
     def fill_box(self, row_start, col_start):
         vals = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        for i in range(row_start, row_start+2):
-            for j in range(col_start, col_start+2):
+        for i in range(row_start, row_start+3):
+            for j in range(col_start, col_start+3):
                 chosen = random.choice(vals)
                 self.board[i][j] = chosen
                 vals.remove(chosen)
@@ -142,7 +143,9 @@ class SudokuGenerator:
 	Return: None
     '''
     def fill_diagonal(self):
-        pass
+        self.fill_box(0, 0)
+        self.fill_box(3, 3)
+        self.fill_box(6, 6)
 
     '''
     DO NOT CHANGE
@@ -157,6 +160,7 @@ class SudokuGenerator:
 	boolean (whether or not we could solve the board)
     '''
     def fill_remaining(self, row, col):
+        print(col, row)
         if (col >= self.row_length and row < self.row_length - 1):
             row += 1
             col = 0
@@ -208,6 +212,14 @@ class SudokuGenerator:
 	Return: None
     '''
     def remove_cells(self):
+        for i in range(0, self.removed_cells):
+            rand_col = random.randint(0, 8)
+            rand_row = random.randint(0, 8)
+            if self.board[rand_row][rand_col] == 0:
+                i -= 1
+            else:
+                self.board[rand_row][rand_col] = 0
+
 
 
 '''
