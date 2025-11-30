@@ -36,10 +36,17 @@ class Cell:
         if number != 0:
             font = pygame.font.SysFont('comicsans', 30)
             number_str = str(number)
-            number=font.render(number_str, True, black_color)
+            number=font.render(number_str, True,black_color)
 
             text_location=number.get_rect(center=(x+self.sizeof_cell//2, y+self.sizeof_cell//2))
             self.screen.blit(number,text_location)
+        elif self.sketched_value != 0:
+            font = pygame.font.SysFont('comicsans', 30)
+            number_str = str(self.sketched_value)
+            number = font.render(number_str, True,black_color)
+            text_location = number.get_rect(topleft=(x + 5, y + 5))
+            self.screen.blit(number, text_location)
+
 
 
 
