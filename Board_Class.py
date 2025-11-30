@@ -155,3 +155,9 @@ class Board:
         return True
 
 
+    def click(self,x,y):
+        row = y // self.cell_size
+        col = x // self.cell_size
+        return (row, col)
+
+
