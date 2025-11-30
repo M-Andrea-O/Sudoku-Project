@@ -148,7 +148,7 @@ def main():
                         board=None
 
                 elif game_status=="lose":
-                    if buttons[0].check_clicked(pos):
+                    if buttons.check_clicked(pos):
                         game_status = "menu"
                         board=None
 

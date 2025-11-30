@@ -48,7 +48,7 @@ class Board:
         #draw grid lines
         for i in range(10):
             # Bold lines for 3x3 boxes
-            line_width = 4 if i % 3 == 0 else 1
+            line_width = 8 if i % 3 == 0 else 1
 
             #horizontal lines
             pygame.draw.line(
