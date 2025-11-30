@@ -71,7 +71,7 @@ class Board:
 
     def sketch(self, value):
 
-        if self.selected_x is not None and 1 <= value <= 9:
+        if self.selected_x is not None and 1 <= value <= 9 :
             row, col = self.selected_x,self.selected_y
 
             if self.cells[row][col].value == 0:
