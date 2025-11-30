@@ -46,10 +46,13 @@ class Board:
 
     def draw(self):
         """Draws the Sudoku grid and all cells"""
+        for row in range(9):
+            for col in range(9):
+                self.cells[row][col].draw()
         #draw grid lines
         for i in range(10):
             # Bold lines for 3x3 boxes
-            line_width = 9 if i % 3 == 0 else 1
+            line_width = 8 if i % 3 == 0 else 1
 
             #horizontal lines
             pygame.draw.line(
@@ -69,9 +72,7 @@ class Board:
                 line_width
             )
             # draw all cells
-        for row in range(9):
-            for col in range(9):
-                self.cells[row][col].draw()
+
 
     def select(self, row, col):
         """Select a cell at the given row and column"""
