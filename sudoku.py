@@ -5,7 +5,7 @@ from Board_Class import Board
 from sudoku_generator import generate_sudoku
 pygame.init()
 
-WIDTH,HEIGHT = 720,640
+WIDTH,HEIGHT = 540,640
 SCREEN =pygame.display.set_mode((WIDTH, HEIGHT))
 
 LEVEL_Easy=30
@@ -47,11 +47,11 @@ def print_text(text,size,y,color=(0,0,0),bold=False):
 
 def main_menu():
         SCREEN.fill((150,170,190))
-        print_text("Welcome to Sudoku",70,HEIGHT//3.5,(0,0,0),True)
+        print_text("Welcome to Sudoku",60,HEIGHT//3.5,(0,0,0),True)
         print_text('Select Game Mode:',40,HEIGHT//2,(0,0,0),True)
-        buttons=[Buttons(80, HEIGHT//3, 180, 80, 'EASY', (255, 165, 0)),
-            Buttons(270, HEIGHT//3, 180, 80, 'MEDIUM', (255, 165, 0)),
-            Buttons(460, HEIGHT//3, 180, 80, 'HARD', (255, 165, 0))]
+        buttons=[Buttons(WIDTH//41, HEIGHT//3, 170, 80, 'EASY', (255, 165, 0)),
+            Buttons(WIDTH//2.875, HEIGHT//3, 170, 80, 'MEDIUM', (255, 165, 0)),
+            Buttons(WIDTH//1.4955, HEIGHT//3, 170, 80, 'HARD', (255, 165, 0))]
         for button in buttons:
             button.create()
         return buttons
@@ -59,9 +59,9 @@ def main_menu():
 def game_in_progress(board):
     SCREEN.fill((150,170,190))
     board.draw()
-    buttons = [Buttons(80, 700, 180, 80, 'RESET', (255, 165, 0)),
-               Buttons(270, 700, 180, 80, 'RESTART', (255, 165, 0)),
-               Buttons(460, 700, 180, 80, 'EXIT', (255, 165, 0))]
+    buttons = [Buttons(WIDTH//38, HEIGHT//(5/4.4), 165, 80, 'RESET', (255, 165, 0)),
+               Buttons(WIDTH//2.755, HEIGHT//(5/4.4), 165, 80, 'RESTART', (255, 165, 0)),
+               Buttons(WIDTH//(5/3.45), HEIGHT//(5/4.4), 165, 80, 'EXIT', (255, 165, 0))]
     for button in buttons:
         button.create()
     return buttons
@@ -69,14 +69,14 @@ def game_in_progress(board):
 def win():
     SCREEN.fill((150,170,190))
     print_text(CLEARED,70,HEIGHT//2,(0,0,0),True)
-    button = [Buttons(260, 450, 200, 80, 'EXIT', ORANGE)]
+    button = Buttons(260, 450, 200, 80, 'EXIT', ORANGE)
     button.create()
     return button
 
 def lose():
     SCREEN.fill(BACKGROUND_COLOR)
     print_text(UNSUCCESSFUL_CLEAR,70,HEIGHT//2,(0,0,0),True)
-    button = [Buttons(260, 450, 200, 80, 'RESTART', ORANGE)]
+    button = Buttons(260, 450, 200, 80, 'RESTART', ORANGE)
     button.create()
     return button
 
@@ -142,7 +142,7 @@ def main():
                         row, col = board.click(pos[0], pos[1])
                         if row != None and col != None and row>=0 and col>=0:
                             board.select(row,col)
-                elif game_status =="win":
+                elif game_status =="won":
                     if buttons.check_clicked(pos):
                         game_status = "menu"
                         board=None
@@ -180,7 +180,7 @@ def main():
 
                             if board.is_full():
                                 if board.check_board():
-                                    game_status = "win"
+                                    game_status = "won"
                                 else:
                                     game_status = "lose"
                 elif event.key == pygame.K_BACKSPACE:
