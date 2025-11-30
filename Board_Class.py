@@ -95,6 +95,9 @@ class Board:
 
 
     def update_board(self):
+        for row in range(9):
+            for col in range(9):
+                self.board[row][col] = self.cells[row][col].value
 
 
     def find_empty(self):
@@ -107,5 +110,38 @@ class Board:
 
 
     def check_board(self):
+        self.update_board()
+        for row in range(9):
+            nums = set()
+            for col in range(9):
+                val = self.board[row][col]
+                if val == 0:
+                    return False   
+                if val in nums:
+                    return False   
+                nums.add(val)
+                
+        for col in range(9):
+            nums = set()
+            for row in range(9):
+                val = self.board[row][col]
+                if val in nums:
+                    return False   
+                nums.add(val)
+        
+
+        for box_row in range(0, 9, 3):
+            for box_col in range(0, 9, 3):
+                nums = set()
+                for i in range(3):
+                    for j in range(3):
+                        row = box_row + i
+                        col = box_col + j
+                        val = self.board[row][col]
+                        if val in nums:
+                            return False  
+                        nums.add(val)
+        
+        return True  
 
 
