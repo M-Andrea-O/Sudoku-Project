@@ -7,8 +7,9 @@ from sudoku_generator import *
 
 class Board:
     def __init__(self, width, height, screen, difficulty):
-        self.width = width
-        self.height = height
+        self.cell_size = 60
+        self.width = self.cell_size*9
+        self.height = self.cell_size*9
         self.screen = screen
         self.board = [[0 for i in range(9)] for i in range(9)]
         self.original_board = [[0 for i in range(9)] for i in range(9)]
@@ -21,7 +22,7 @@ class Board:
             self.cells.append(cells)
         self.selected_x=None
         self.selected_y=None
-        self.cell_size= 60                                                                        #Cell.sizeof_cell has no attribute error
+                                                                               #Cell.sizeof_cell has no attribute error
         self.difficulty = difficulty
         # remove_cells = 30
         if difficulty == 'easy':
@@ -48,7 +49,7 @@ class Board:
         #draw grid lines
         for i in range(10):
             # Bold lines for 3x3 boxes
-            line_width = 8 if i % 3 == 0 else 1
+            line_width = 9 if i % 3 == 0 else 1
 
             #horizontal lines
             pygame.draw.line(

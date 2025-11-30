@@ -69,14 +69,14 @@ def game_in_progress(board):
 def win():
     SCREEN.fill((150,170,190))
     print_text(CLEARED,70,HEIGHT//2,(0,0,0),True)
-    button = Buttons(260, 450, 200, 80, 'EXIT', ORANGE)
+    button = Buttons(170, 450, 200, 80, 'EXIT', ORANGE)
     button.create()
     return button
 
 def lose():
     SCREEN.fill(BACKGROUND_COLOR)
     print_text(UNSUCCESSFUL_CLEAR,70,HEIGHT//2,(0,0,0),True)
-    button = Buttons(260, 450, 200, 80, 'RESTART', ORANGE)
+    button = Buttons(170, 450, 200, 80, 'RESTART', ORANGE)
     button.create()
     return button
 
