@@ -35,13 +35,11 @@ class Buttons:
         pygame.draw.rect(SCREEN, (0,0,0), self.rect, 3)
         text = self.font.render(self.text, True, (255,255,255))
         SCREEN.blit(text, text.get_rect(center=self.rect.center))
+
 def print_text(text,size,y,color=(0,0,0),bold=False):
         font=pygame.font.SysFont('arial', size,bold=bold)
-
         surf = font.render(text, True, color)
         SCREEN.blit(surf, surf.get_rect(center=(WIDTH // 2, y)))
-
-
 
 def main_menu():
         SCREEN.fill((150,170,190))
@@ -53,12 +51,13 @@ def main_menu():
         for button in buttons:
             button.create()
         return buttons
+
 def game_in_progress(board):
     SCREEN.fill((150,170,190))
     board.draw()
-    buttons = [Buttons(80, HEIGHT // 3, 180, 80, 'RESET', (255, 165, 0)),
-               Buttons(270, HEIGHT // 3, 180, 80, 'RESTART', (255, 165, 0)),
-               Buttons(460, HEIGHT // 3, 180, 80, 'EXIT', (255, 165, 0))]
+    buttons = [Buttons(80, 700, 180, 80, 'RESET', (255, 165, 0)),
+               Buttons(270, 700, 180, 80, 'RESTART', (255, 165, 0)),
+               Buttons(460, 700, 180, 80, 'EXIT', (255, 165, 0))]
     for button in buttons:
         button.create()
     return buttons
@@ -70,7 +69,6 @@ def win():
     button.create()
     return button
 
-
 def lose():
     SCREEN.fill(BACKGROUND_COLOR)
     print_text(UNSUCCESSFUL_CLEAR,70,HEIGHT//2,(0,0,0),True)
@@ -78,26 +76,18 @@ def lose():
     button.create()
     return button
 
-
 def new_board(difficulty):
     return Board(WIDTH,HEIGHT,SCREEN,difficulty)
 
-
-
-
 def main():
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+
     game_status= "Start Up"
     board = None
-    buttons = None
+    buttons = []
+
     run = True
     while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-                pygame.quit()
-                sys.exit()
         if game_status == "Start Up":
             buttons = main_menu()
         elif game_status == "middle":
@@ -106,6 +96,13 @@ def main():
             buttons = win()
         elif game_status == "lost":
             buttons = lose()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+                sys.exit()
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = event.pos
             if game_status== "Start Up":
