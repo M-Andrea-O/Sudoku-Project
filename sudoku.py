@@ -89,6 +89,10 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
 
+if __name__=="__main__":
+    main()
 
 BACKGROUND_COLOR = (150,170,190)
 ORANGE=(255, 165, 0)
+
+
