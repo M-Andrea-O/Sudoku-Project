@@ -185,7 +185,18 @@ def main():
                                     game_status = "lose"
                 elif event.key == pygame.K_BACKSPACE:
                     board.clear()
-
+                elif event.key == pygame.K_UP:
+                    if board.selected_x is not None and board.selected_x > 0:
+                        board.select(board.selected_x - 1, board.selected_y)
+                elif event.key == pygame.K_DOWN:
+                    if board.selected_x is not None and board.selected_x < 8:
+                        board.select(board.selected_x + 1, board.selected_y)
+                elif event.key == pygame.K_LEFT:
+                    if board.selected_y is not None and board.selected_y > 0:
+                        board.select(board.selected_x, board.selected_y - 1)
+                elif event.key == pygame.K_RIGHT:
+                    if board.selected_y is not None and board.selected_y < 8:
+                        board.select(board.selected_x, board.selected_y + 1)
 
     pygame.quit()
 
